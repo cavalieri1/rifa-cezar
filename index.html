@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rifa Solidária</title>
+  <style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f6f8;color:#1f2933}.hero{background:linear-gradient(135deg,#334155,#0f766e);color:white;padding:36px 18px}.hero-content{max-width:960px;margin:auto}.badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);padding:8px 14px;border-radius:999px;display:inline-block;margin-bottom:12px}h1{font-size:clamp(28px,5vw,48px);margin:0 0 12px}h2{margin-top:0}.hero p{font-size:18px;line-height:1.5;max-width:760px}.info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:24px}.info-grid div{background:rgba(255,255,255,.13);padding:14px;border-radius:14px}.info-grid strong,.info-grid span{display:block}.info-grid span{margin-top:5px}main{max-width:960px;margin:-24px auto 40px;padding:0 14px}.card{background:white;border-radius:18px;padding:22px;margin-bottom:18px;box-shadow:0 10px 30px rgba(15,23,42,.08)}.progress-text{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px}.progress-bar{height:14px;background:#e5e7eb;border-radius:999px;overflow:hidden}#progressFill{height:100%;width:0%;background:#0f766e;transition:width .3s ease}.legenda,.muted,.small{color:#64748b}.selection-panel{border:2px solid #dbeafe}.selected-list{background:#f8fafc;border:1px dashed #94a3b8;border-radius:12px;padding:12px;min-height:45px;line-height:1.5}.selection-total{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:12px 0;font-size:17px}.random-box{background:#f8fafc;border-radius:12px;padding:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.random-box label{margin:0}select{padding:10px;border:1px solid #cbd5e1;border-radius:10px;font-size:15px}.numbers-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:8px}.number{border:none;border-radius:10px;padding:11px 4px;font-weight:bold;cursor:pointer;transition:transform .1s ease}.number:hover{transform:translateY(-1px)}.number.disponivel{background:#dcfce7;color:#166534}.number.selecionado{background:#dbeafe;color:#1d4ed8;outline:3px solid #60a5fa}.number.reservado{background:#fef3c7;color:#92400e;cursor:not-allowed}.number.pago{background:#fee2e2;color:#991b1b;cursor:not-allowed}.pix-box{background:#f8fafc;border:1px dashed #94a3b8;padding:14px;border-radius:12px;word-break:break-word}.whatsapp,.primary,.secondary{display:inline-block;margin-top:14px;padding:13px 18px;color:white;text-decoration:none;border-radius:12px;border:0;font-weight:bold;cursor:pointer;font-size:16px}.whatsapp{background:#16a34a}.primary{width:100%;background:#0f766e}.primary:disabled{background:#94a3b8;cursor:not-allowed}.secondary{background:#2563eb;margin-top:0}.action-buttons{display:grid;grid-template-columns:1fr 2fr;gap:10px;margin-top:14px}.action-buttons .primary,.action-buttons .secondary{margin-top:0;width:100%}.secondary.clear{background:#64748b}.secondary:disabled{background:#cbd5e1;cursor:not-allowed}.modal{position:fixed;inset:0;background:rgba(15,23,42,.58);display:flex;align-items:center;justify-content:center;padding:18px;z-index:999}.hidden{display:none}.modal-card{background:white;border-radius:18px;padding:22px;max-width:460px;width:100%;position:relative}.modal-summary{background:#f8fafc;border-radius:12px;padding:12px;margin-bottom:12px}.modal-summary p{margin:6px 0}.close{position:absolute;right:14px;top:10px;border:0;background:transparent;font-size:30px;cursor:pointer}label{display:block;font-weight:bold;margin-top:14px}input{width:100%;padding:13px;margin-top:6px;border:1px solid #cbd5e1;border-radius:10px;font-size:16px}@media(max-width:700px){.info-grid{grid-template-columns:repeat(2,1fr)}.numbers-grid{grid-template-columns:repeat(5,1fr)}.card{padding:18px}.random-box{display:block}.random-box select,.random-box button{width:100%;margin-top:8px}.action-buttons{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-content">
+      <span class="badge">Rifa Solidária</span>
+      <h1>Rifa Solidária em Prol de CÉZAR DO CAFÉ MARROCOS</h1>
+      <p>Participe da RIFA SOLIDÁRIA em prol do CÉZAR DO CAFÉ MARROCOS que está lutando contra um câncer. Ele removeu parte do estômago, está em recuperação e impossibilitado de trabalhar. Sua solidariedade o ajudará a vencer esse desafio!</p>
+      <div class="info-grid">
+        <div><strong>Prêmio</strong><span>02 Jaquetas de Frio (Masc e Fem)</span></div>
+        <div><strong>Valor</strong><span>R$ 20,00 cada</span></div>
+        <div><strong>Números</strong><span>001 a 200</span></div>
+        <div><strong>Sorteio</strong><span>11/07/2026</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="card resumo">
+      <h2>Resumo da campanha</h2>
+      <div class="progress-wrap">
+        <div class="progress-text">
+          <span id="vendidosText">Carregando...</span>
+          <strong id="arrecadadoText">R$ 0,00 arrecadados</strong>
+        </div>
+        <div class="progress-bar"><div id="progressFill"></div></div>
+      </div>
+      <p class="legenda">🟢 Disponível &nbsp; 🔵 Selecionado &nbsp; 🟡 Reservado &nbsp; 🔴 Pago</p>
+    </section>
+
+    <section class="card selection-panel">
+      <h2>Seus números selecionados</h2>
+      <p id="selectedList" class="selected-list">Nenhum número selecionado ainda.</p>
+      <div class="selection-total">
+        <span>Quantidade: <strong id="selectedCount">0</strong></span>
+        <span>Total: <strong id="selectedTotal">R$ 0,00</strong></span>
+      </div>
+      <div class="random-box">
+        <label for="randomQty">Escolher números aleatórios:</label>
+        <select id="randomQty">
+          <option value="1">1 número</option><option value="2">2 números</option><option value="3">3 números</option><option value="5">5 números</option><option value="10">10 números</option><option value="20">20 números</option>
+        </select>
+        <button id="randomBtn" class="secondary" type="button">Sortear disponíveis</button>
+      </div>
+      <div class="action-buttons">
+        <button id="clearSelectedBtn" class="secondary clear" type="button" disabled>Limpar seleção</button>
+        <button id="reserveSelectedBtn" class="primary" type="button" disabled>Reservar números selecionados</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Escolha seus números</h2>
+      <p class="muted">Clique em um ou mais números disponíveis. Clique novamente para remover da seleção.</p>
+      <div id="numbersGrid" class="numbers-grid"></div>
+    </section>
+
+    <section class="card pix">
+      <h2>Pagamento via PIX</h2>
+      <p>Depois de reservar, faça o PIX e envie o comprovante pelo WhatsApp.</p>
+      <div class="pix-box"><strong>Chave PIX:</strong> <span id="pixKey"></span></div>
+      <a id="whatsappBtn" class="whatsapp" target="_blank" rel="noopener">Enviar comprovante pelo WhatsApp</a>
+    </section>
+
+    <section class="card regulamento">
+      <h2>Regulamento</h2>
+      <p>O sorteio será realizado pela Loteria Federal do dia 11/07/2026. O 1º ganhador será definido pelos três últimos algarismos do 1º prêmio da Loteria Federal. O 2º ganhador será definido pelos três últimos algarismos do 2º prêmio da Loteria Federal. Caso o número obtido seja superior a 200, serão considerados apenas os dois últimos algarismos do resultado. Exemplos: 734 = número 034, 851 = número 051, 205 = número 005. Cada prêmio terá um ganhador diferente.</p>
+    </section>
+  </main>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-card">
+      <button id="closeModal" class="close">×</button>
+      <h2>Reservar números</h2>
+      <div class="modal-summary">
+        <p><strong>Números:</strong> <span id="modalNumbers"></span></p>
+        <p><strong>Total:</strong> <span id="modalTotal"></span></p>
+      </div>
+      <form id="reserveForm">
+        <label>Nome completo<input id="nameInput" type="text" required placeholder="Nome e sobrenome" autocomplete="name" /></label>
+        <label>WhatsApp<input id="phoneInput" type="tel" required placeholder="(19) 99999-9999" maxlength="15" autocomplete="tel" /></label>
+        <button type="submit" class="primary">Confirmar reserva</button>
+      </form>
+      <p class="small">Após a reserva, os números ficarão como reservados até a confirmação do pagamento.</p>
+    </div>
+  </div>
+
+  <script>
+// CONFIGURAÇÕES PRINCIPAIS
+const CONFIG = {
+  totalNumbers: 200,
+  ticketPrice: 20,
+  pixKey: "CPF 131.682.178-16 - Creide Apª Ribeiro Toledo",
+  whatsappNumber: "5519983297625",
+  apiUrl: "https://script.google.com/macros/s/AKfycbxI0FKLoFwyIbvgWUTmxOyRgZbmPXlLjf-E4v2hyVsD4vjlZX-fyCBrTGTFiGfwKr5y/exec"
+};
+
+const grid = document.getElementById("numbersGrid");
+const modal = document.getElementById("modal");
+const reserveForm = document.getElementById("reserveForm");
+const nameInput = document.getElementById("nameInput");
+const phoneInput = document.getElementById("phoneInput");
+const closeModal = document.getElementById("closeModal");
+const vendidosText = document.getElementById("vendidosText");
+const arrecadadoText = document.getElementById("arrecadadoText");
+const progressFill = document.getElementById("progressFill");
+const pixKeyEl = document.getElementById("pixKey");
+const whatsappBtn = document.getElementById("whatsappBtn");
+const selectedList = document.getElementById("selectedList");
+const selectedCount = document.getElementById("selectedCount");
+const selectedTotal = document.getElementById("selectedTotal");
+const reserveSelectedBtn = document.getElementById("reserveSelectedBtn");
+const randomQty = document.getElementById("randomQty");
+const randomBtn = document.getElementById("randomBtn");
+const clearSelectedBtn = document.getElementById("clearSelectedBtn");
+const modalNumbers = document.getElementById("modalNumbers");
+const modalTotal = document.getElementById("modalTotal");
+
+let numbersData = [];
+let selectedNumbers = [];
+
+pixKeyEl.textContent = CONFIG.pixKey;
+whatsappBtn.href = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent("Olá! Segue comprovante da rifa solidária.")}`;
+
+function formatNumber(n) { return String(n).padStart(3, "0"); }
+function formatMoney(value) { return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }); }
+
+function normalizeStatus(status) {
+  const s = (status || "Disponível").toLowerCase();
+  if (s.includes("pago")) return "pago";
+  if (s.includes("reserv")) return "reservado";
+  return "disponivel";
+}
+
+function getAvailableNumbers() {
+  const available = [];
+  for (let i = 1; i <= CONFIG.totalNumbers; i++) {
+    const numero = formatNumber(i);
+    const item = numbersData.find(n => String(n.numero).padStart(3, "0") === numero);
+    const statusClass = normalizeStatus(item?.status);
+    if (statusClass === "disponivel" && !selectedNumbers.includes(numero)) available.push(numero);
+  }
+  return available;
+}
+
+async function loadNumbers() {
+  try {
+    const response = await fetch(CONFIG.apiUrl);
+    numbersData = await response.json();
+    selectedNumbers = selectedNumbers.filter(numero => {
+      const item = numbersData.find(n => String(n.numero).padStart(3, "0") === numero);
+      return normalizeStatus(item?.status) === "disponivel";
+    });
+    renderNumbers();
+    renderSelection();
+  } catch (error) {
+    console.error(error);
+    alert("Erro ao carregar os números.");
+  }
+}
+
+function renderNumbers() {
+  grid.innerHTML = "";
+  let pagos = 0;
+
+  for (let i = 1; i <= CONFIG.totalNumbers; i++) {
+    const numero = formatNumber(i);
+    const item = numbersData.find(n => String(n.numero).padStart(3, "0") === numero) || { numero, status: "Disponível" };
+    let statusClass = normalizeStatus(item.status);
+
+    if (selectedNumbers.includes(numero) && statusClass === "disponivel") statusClass = "selecionado";
+    if (normalizeStatus(item.status) === "pago") pagos++;
+
+    const btn = document.createElement("button");
+    btn.className = `number ${statusClass}`;
+    btn.textContent = numero;
+    btn.title = item.nome ? `${item.status} - ${item.nome}` : item.status;
+
+    if (statusClass === "disponivel" || statusClass === "selecionado") {
+      btn.addEventListener("click", () => toggleNumber(numero));
+    } else {
+      btn.disabled = true;
+    }
+    grid.appendChild(btn);
+  }
+
+  const percentual = Math.round((pagos / CONFIG.totalNumbers) * 100);
+  vendidosText.textContent = `${pagos} de ${CONFIG.totalNumbers} números pagos`;
+  arrecadadoText.textContent = `${formatMoney(pagos * CONFIG.ticketPrice)} arrecadados`;
+  progressFill.style.width = `${percentual}%`;
+}
+
+function toggleNumber(numero) {
+  if (selectedNumbers.includes(numero)) selectedNumbers = selectedNumbers.filter(n => n !== numero);
+  else selectedNumbers.push(numero);
+  selectedNumbers.sort();
+  renderNumbers();
+  renderSelection();
+}
+
+function renderSelection() {
+  selectedList.textContent = selectedNumbers.length ? selectedNumbers.join(", ") : "Nenhum número selecionado ainda.";
+  selectedCount.textContent = selectedNumbers.length;
+  selectedTotal.textContent = formatMoney(selectedNumbers.length * CONFIG.ticketPrice);
+  reserveSelectedBtn.disabled = selectedNumbers.length === 0;
+  clearSelectedBtn.disabled = selectedNumbers.length === 0;
+}
+
+function chooseRandomNumbers() {
+  const qty = Number(randomQty.value);
+  const available = getAvailableNumbers();
+  if (available.length === 0) return alert("Não há números disponíveis para selecionar.");
+  if (qty > available.length) return alert(`Só existem ${available.length} números disponíveis neste momento.`);
+
+  for (let i = available.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [available[i], available[j]] = [available[j], available[i]];
+  }
+  selectedNumbers = [...new Set([...selectedNumbers, ...available.slice(0, qty)])].sort();
+  renderNumbers();
+  renderSelection();
+}
+
+function clearSelection() {
+  selectedNumbers = [];
+  renderNumbers();
+  renderSelection();
+}
+
+function openReserveModal() {
+  if (selectedNumbers.length === 0) return alert("Escolha pelo menos um número.");
+  modalNumbers.textContent = selectedNumbers.join(", ");
+  modalTotal.textContent = formatMoney(selectedNumbers.length * CONFIG.ticketPrice);
+  nameInput.value = "";
+  phoneInput.value = "";
+  modal.classList.remove("hidden");
+}
+
+closeModal.addEventListener("click", () => modal.classList.add("hidden"));
+reserveSelectedBtn.addEventListener("click", openReserveModal);
+randomBtn.addEventListener("click", chooseRandomNumbers);
+clearSelectedBtn.addEventListener("click", clearSelection);
+
+function hasFirstAndLastName(name) {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  return parts.length >= 2 && parts[0].length >= 2 && parts[1].length >= 2;
+}
+
+function isValidPhone(phone) {
+  return /^\(\d{2}\) \d{5}-\d{4}$/.test(phone.trim());
+}
+
+function applyPhoneMask(value) {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+
+  if (digits.length <= 2) {
+    return digits ? `(${digits}` : "";
+  }
+
+  if (digits.length <= 7) {
+    return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  }
+
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+}
+
+phoneInput.addEventListener("input", () => {
+  phoneInput.value = applyPhoneMask(phoneInput.value);
+});
+
+reserveForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const nome = nameInput.value.trim();
+  const telefone = phoneInput.value.trim();
+
+  if (!hasFirstAndLastName(nome)) {
+    alert("Nome e sobrenome obrigatórios");
+    nameInput.focus();
+    return;
+  }
+
+  if (!isValidPhone(telefone)) {
+    alert("Informe o celular no formato (99) 99999-9999.");
+    phoneInput.focus();
+    return;
+  }
+
+  if (selectedNumbers.length === 0) {
+    alert("Escolha pelo menos um número.");
+    return;
+  }
+
+  try {
+    const response = await fetch(CONFIG.apiUrl, {
+      method: "POST",
+      body: JSON.stringify({ numeros: selectedNumbers, nome, telefone, status: "Reservado" })
+    });
+    const result = await response.json();
+
+    if (!result.ok) {
+      alert(result.message || "Não foi possível reservar os números.");
+      await loadNumbers();
+      return;
+    }
+
+    const numerosReservados = [...selectedNumbers];
+    const total = formatMoney(numerosReservados.length * CONFIG.ticketPrice);
+    modal.classList.add("hidden");
+    selectedNumbers = [];
+    await loadNumbers();
+
+    const msg = `Olá! Reservei os números ${numerosReservados.join(", ")} da rifa solidária. Total: ${total}. Vou enviar o comprovante do PIX.`;
+    window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`, "_blank");
+  } catch (error) {
+    console.error(error);
+    alert("Erro ao reservar. Verifique se o Apps Script foi atualizado e publicado novamente.");
+  }
+});
+
+loadNumbers();
+
+</script>
+</body>
+</html>
