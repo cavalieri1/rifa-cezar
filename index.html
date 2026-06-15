@@ -13,7 +13,7 @@
     <div class="hero-content">
       <span class="badge">Rifa Solidária</span>
       <h1>Rifa Solidária em Prol de CÉZAR DO CAFÉ MARROCOS</h1>
-      <p>Participe da RIFA SOLIDÁRIA em prol do CÉZAR DO CAFÉ MARROCOS. Ele removeu todo o estômago, está em recuperação e impossibilitado de trabalhar. Sua solidariedade o ajudará a vencer esse desafio!</p>
+      <p>Participe da RIFA SOLIDÁRIA em prol do CÉZAR DO CAFÉ MARROCOS. Ele precisou passar pela remoção total do estômago devido ao tratamento contra o câncer, está em recuperação e impossibilitado de trabalhar. Sua solidariedade o ajudará a vencer esse desafio!</p>
       <div class="info-grid">
         <div><strong>Prêmio</strong><span>02 Jaquetas de Frio (Masc e Fem)</span></div>
         <div><strong>Valor</strong><span>R$ 20,00 cada</span></div>
@@ -85,7 +85,7 @@
       </div>
       <form id="reserveForm">
         <label>Nome completo<input id="nameInput" type="text" required placeholder="Nome e sobrenome" autocomplete="name" /></label>
-        <label>WhatsApp<input id="phoneInput" type="tel" required placeholder="(19) 99999-9999" maxlength="15" autocomplete="tel" /></label>
+        <label>WhatsApp<input id="phoneInput" type="tel" required placeholder="Digite seu WhatsApp: 19997378030" inputmode="numeric" autocomplete="tel" /></label>
         <button type="submit" class="primary">Confirmar reserva</button>
       </form>
       <p class="small">Após a reserva, os números ficarão como reservados até a confirmação do pagamento.</p>
@@ -253,32 +253,19 @@ function hasFirstAndLastName(name) {
   return parts.length >= 2 && parts[0].length >= 2 && parts[1].length >= 2;
 }
 
+function cleanPhone(phone) {
+  return phone.replace(/\D/g, "");
+}
+
 function isValidPhone(phone) {
-  return /^\(\d{2}\) \d{5}-\d{4}$/.test(phone.trim());
+  const digits = cleanPhone(phone);
+  return digits.length >= 9 && digits.length <= 13;
 }
-
-function applyPhoneMask(value) {
-  const digits = value.replace(/\D/g, "").slice(0, 11);
-
-  if (digits.length <= 2) {
-    return digits ? `(${digits}` : "";
-  }
-
-  if (digits.length <= 7) {
-    return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
-  }
-
-  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
-}
-
-phoneInput.addEventListener("input", () => {
-  phoneInput.value = applyPhoneMask(phoneInput.value);
-});
 
 reserveForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const nome = nameInput.value.trim();
-  const telefone = phoneInput.value.trim();
+  const telefone = cleanPhone(phoneInput.value);
 
   if (!hasFirstAndLastName(nome)) {
     alert("Nome e sobrenome obrigatórios");
@@ -287,7 +274,7 @@ reserveForm.addEventListener("submit", async (event) => {
   }
 
   if (!isValidPhone(telefone)) {
-    alert("Informe o celular no formato (99) 99999-9999.");
+    alert("Informe um WhatsApp válido, com no mínimo 9 e no máximo 13 números.");
     phoneInput.focus();
     return;
   }
